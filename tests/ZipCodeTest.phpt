@@ -40,6 +40,10 @@ final class ZipCodeTest extends TestCase
 			Assert::type(ZipCode::class, $zip);
 			Assert::equal($validValue, $zip->getValue());
 		}
+
+		$zip = ZipCode::from('72828');
+		Assert::true($zip->isValidForCountry(CountryCode::from(CountryCode::CZ)));
+		Assert::false($zip->isValidForCountry(CountryCode::from(CountryCode::GB)));
 	}
 
 }
