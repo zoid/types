@@ -404,6 +404,32 @@ abstract class PrimitiveTypes
 			throw $e->wrap($key);
 		}
 	}
+	
+	/**
+	 * @param mixed[] $data
+	 * @param string $key
+	 * @return string[]
+	 * @throws \SmartEmailing\Types\InvalidTypeException
+	 */
+	final public static function extractIntArray(
+		array $data,
+		string $key
+	): array {
+		$value = ExtractableHelpers::extractValue($data, $key);
+
+		try {
+			$stringArray = Arrays::getArray($value);
+			$return = [];
+
+			foreach ($stringArray as $index => $item) {
+				$return[$index] = self::getInt($item);
+			}
+
+			return $return;
+		} catch (InvalidTypeException $e) {
+			throw $e->wrap($key);
+		}
+	}
 
 	/**
 	 * Preserves keys
